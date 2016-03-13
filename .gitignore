@@ -1,0 +1,14 @@
+._bootstrap.min.js
+._bootstrap.min.css
+._bootstrap.js
+._bootstrap.css
+._.DS_Store
+.DS_Store
+first-cordova-app/
+workshop/cordova-tutorial/node_modules/
+
+workshop/.DS_Store
+
+hello/
+
+workshop/platforms/

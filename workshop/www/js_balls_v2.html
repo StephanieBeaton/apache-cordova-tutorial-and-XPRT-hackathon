@@ -1,0 +1,333 @@
+<html>
+<head>
+	<title>Javascript Balls</title>
+
+  <!--  Ratchet is a simple CSS toolkit that provides styles for mobile applications.  -->
+  <link href="assets/ratchet/css/ratchet.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div id="results"></div>
+	<svg id="svg" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%"></svg>
+
+	<script>
+
+  var startTime;
+
+	function getTime(){
+		var date = new Date();
+		return date.getTime();
+	}
+
+
+  // =======================================================
+
+	  //   code added by Stephanie
+
+	  //  all prime numbers less than 1000
+	  // https://primes.utm.edu/lists/small/1000.txt
+
+	  // A simple Linear Congruential Generator
+
+
+	  var m = 25,
+	      // a - 1 should be divisible by m's prime factors
+	      a = 11,
+	      // c and m should be co-prime
+	      c = 17;
+	  // Setting the seed
+	  var z = 3;
+
+	  var rand = function() {
+	    // define the recurrence relationship
+	    z = (a * z + c) % m;
+	    // return an integer
+	    // Could return a float in (0, 1) by dividing by m
+	    return z/m;
+	  };
+
+	  // Establish the parameters of the generator
+	  //  these parameters cause an increasing series of numbers
+	  //  ... it doesn't work
+
+	  // var m2 = 1000,
+	  //     // a - 1 should be divisible by m's prime factors
+	  //     a2 = 2001,
+	  //     // c and m should be co-prime
+	  //     c2 = 17;
+	  // // Setting the seed
+	  // var z2 = 3;
+
+	  var m2 = 25,
+	      // a - 1 should be divisible by m's prime factors
+	      a2 = 11,
+	      // c and m should be co-prime
+	      c2 = 17;
+	  // Setting the seed
+	  var z2 = 3;
+
+	  var rand2 = function() {
+	    // define the recurrence relationship
+	    z2 = (a2 * z2 + c2) % m2;
+	    // return an integer
+	    // Could return a float in (0, 1) by dividing by m
+	    return z2/m2;
+	  };
+
+
+	  var m3 = 25,
+	      // a - 1 should be divisible by m's prime factors
+	      a3 = 11,
+	      // c and m should be co-prime
+	      c3 = 17;
+	  // Setting the seed
+	  var z3 = 3;
+
+	  var rand3 = function() {
+	    // define the recurrence relationship
+	    z3 = (a3 * z3 + c3) % m3;
+	    // return an integer
+	    // Could return a float in (0, 1) by dividing by m
+	    return z3/m3;
+	  };
+
+	  var m4 = 25,
+	      // a - 1 should be divisible by m's prime factors
+	      a4 = 11,
+	      // c and m should be co-prime
+	      c4 = 17;
+	  // Setting the seed
+	  var z4 = 3;
+
+	  var rand4 = function() {
+	    // define the recurrence relationship
+	    z4 = (a4 * z4 + c4) % m4;
+	    // return an integer
+	    // Could return a float in (0, 1) by dividing by m
+	    return z4/m4;
+	  };
+  // =======================================================
+
+  // used to calculate the initial velocity in the x and y direction
+  // ... each time the code runs the same "random" sequence
+  // ... of velocities is generated
+	//public function that generates a random number
+	var randomNumberBetween = function(min, max){
+		//  ... changed by Stephanie
+		// return Math.random()*(max-min) + min;
+		return rand()*(max-min) + min;
+	}
+
+  // used to calculate the radius of the circle
+  // ... each time the code runs the same "random" sequence
+  // ... of radii is generated
+	//public function that generates a random number
+	var randomNumberBetween2 = function(min, max){
+		//  ... changed by Stephanie
+		// return Math.random()*(max-min) + min;
+		return Math.floor(rand2()*(max-min) + min);
+	}
+
+
+  // used to calculate the initial x and y position of the circle
+  // ... each time the code runs the same "random" sequence
+  // ... of x and y coordinates is generated
+	//public function that generates a random number
+	var randomNumberBetween3 = function(min, max){
+		//  ... changed by Stephanie
+		// return Math.random()*(max-min) + min;
+		return Math.floor(rand3()*(max-min) + min);
+	}
+
+  // used to calculate the color of the circle
+  // ... each time the code runs the same "random" sequence
+  // ... of red, green, blue values is generated
+	//public function that generates a random number
+	var randomNumberBetween4 = function(min, max){
+		//  ... changed by Stephanie
+		// return Math.random()*(max-min) + min;
+		return Math.floor(rand4()*(max-min) + min);
+	}
+
+
+	function Circle(cx, cy, radius, html_id)
+	{
+		var html_id = html_id;
+		var radius = radius;
+		this.info = { cx: cx,  cy: cy};
+
+
+		this.initialize = function(){
+			//give a random velocity for the circle
+			this.info.velocity = {
+				x: randomNumberBetween(-3,3),
+				y: randomNumberBetween(-3,3)
+			}
+
+      // create random RGB color
+      // style: "fill: black"
+      // style: "fill: #00FF40"
+      // var colorRed = 49;
+      // var colorGreen = 236;
+      // var colorBlue =  86;
+
+      var colorRed   = randomNumberBetween4(0, 255);
+      var colorGreen = randomNumberBetween4(0, 255);
+      var colorBlue  = randomNumberBetween4(0, 255);
+
+
+      var colorStyle = "fill: rgb(" + colorRed + "," + colorBlue + "," + colorGreen + ")";
+
+      console.log(colorStyle);
+
+			//create a circle
+			var circle = makeSVG('circle',
+				{ 	cx: this.info.cx,
+				  	cy: this.info.cy,
+				  	r:  radius,
+				  	id: html_id,
+				  	style: colorStyle
+				});
+
+			document.getElementById('svg').appendChild(circle);
+		}
+
+		this.update = function(time){
+
+			// console.log("inside update - circles are being moved");
+			var el = document.getElementById(html_id);
+
+			//see if the circle is going outside the browser. if it is, reverse the velocity
+			if( this.info.cx > document.body.clientWidth-30 || this.info.cx < 10)
+			{
+				this.info.velocity.x = this.info.velocity.x * -1;
+			}
+			if( this.info.cy > document.body.clientHeight-25 || this.info.cy < 10)
+			{
+				this.info.velocity.y = this.info.velocity.y * -1;
+			}
+
+			this.info.cx = this.info.cx + this.info.velocity.x*time;
+			this.info.cy = this.info.cy + this.info.velocity.y*time;
+
+			el.setAttribute("cx", this.info.cx);
+			el.setAttribute("cy", this.info.cy);
+		}
+
+		//creates the SVG element and returns it
+		var makeSVG = function(tag, attrs) {
+	        var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
+	        for (var k in attrs)
+	        {
+	            el.setAttribute(k, attrs[k]);
+	        }
+	        return el;
+	    }
+
+	    this.initialize();
+	}
+
+	function PlayGround()
+	{
+		var counter = 0;  //counts the number of circles created
+		var circles = [ ]; //array that will hold all the circles created in the app
+		var maxCircleCount = 5;
+		var countTimesCalledLoopFunction = 0;
+		var intervalTimesCalledLoopBetweenCircleCreations = 500;
+		var consoleLogResults = true;
+
+
+
+		this.createNewCircle = function(x,y,radius){
+			var new_circle = new Circle(x,y,radius,counter++);
+			circles.push(new_circle);
+		}
+
+		//a loop that updates the circle's position on the screen
+		this.loop = function(){
+			// console.log("inside Playground.loop");
+
+			countTimesCalledLoopFunction += 1;
+
+
+			for(circle in circles)
+			{
+				circles[circle].update(1);
+			};
+
+			if ((circles.length < maxCircleCount) && (countTimesCalledLoopFunction % intervalTimesCalledLoopBetweenCircleCreations === 0)) {
+				// create another Circle
+				// ... takes approx 3500 ms
+				var radius = randomNumberBetween2(5, 30);
+				console.log("radius = " + radius);
+
+        var xcoord = randomNumberBetween3(10, document.body.clientWidth - 10);
+        var ycoord = randomNumberBetween3(10, document.body.clientHeight - 10);
+
+				var new_circle = new Circle(xcoord, ycoord,radius,counter++);
+			  circles.push(new_circle);
+
+				// this.createNewCircle(100,100,radius);
+
+        //  this function was added to make creation of a circle take longer
+        //  ... but it "blocks" other functions from running
+        //  ... so the circles cannot move while a circle is being created
+        //  ... if this function is run
+        //  Also this function does not measure the Graphics Processor
+        //createIntervalBetweenCircleCreation();
+
+			} else if (circles.length === maxCircleCount && consoleLogResults) {
+
+        var endTime = getTime();
+
+		    resultMsg = "elapsed Time = " + (endTime - startTime) + " milliseconds";
+		    console.log(resultMsg);
+
+        var el = document.getElementById("results");
+        el.innerHTML = resultMsg;
+
+		    consoleLogResults = false;
+
+			};
+		};
+
+		//create one circle when the game starts
+		this.createNewCircle(document.body.clientWidth/2, document.body.clientHeight/2, 10);
+	};
+
+	function createIntervalBetweenCircleCreation() {
+
+      var startTime = getTime();
+
+		  var r = 5000;
+      var c = 5000;
+      var a = new Array(r);
+
+      for (var i = 0; i < r; i++) {
+          a[i] = new Array(c);
+
+          for (var j = 0; j < c; j++) {
+              a[i][j] = "[" + i + "," + j + "]";
+          }
+      }
+
+      console.log("elapsed time between circle creation = " + (getTime() - startTime));
+
+	};
+
+	var playground = new PlayGround();
+	setInterval(playground.loop, 15);
+
+
+	( function(){
+
+    startTime = getTime();
+    // console.log("startTime = " + startTime);
+
+	})();
+	</script>
+
+</body>
+</html>
